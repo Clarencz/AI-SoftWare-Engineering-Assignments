@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini E-Learning Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .course-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .course-card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      flex: 1 1 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    li.completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+
+    .back-btn {
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mini E-Learning Platform</h1>
+  </header>
+  <main>
+    <div id="home-page">
+      <h2>Courses</h2>
+      <div class="course-list" id="course-list"></div>
+    </div>
+
+    <div id="course-page" class="hidden">
+      <button class="back-btn" onclick="showHome()">← Back to Courses</button>
+      <h2 id="course-title"></h2>
+      <ul id="lesson-list"></ul>
+    </div>
+  </main>
+
+  <script>
+    // Sample course data
+    const courses = [
+      {
+        id: 1,
+        title: "JavaScript Basics",
+        lessons: ["Variables", "Functions", "Loops", "DOM Manipulation"],
+        completed: false
+      },
+      {
+        id: 2,
+        title: "HTML & CSS Fundamentals",
+        lessons: ["HTML Tags", "CSS Selectors", "Flexbox", "Responsive Design"],
+        completed: false
+      },
+      {
+        id: 3,
+        title: "Web Development Project",
+        lessons: ["Project Setup", "API Integration", "Styling", "Deployment"],
+        completed: false
+      }
+    ];
+
+    const courseListEl = document.getElementById('course-list');
+    const homePageEl = document.getElementById('home-page');
+    const coursePageEl = document.getElementById('course-page');
+    const courseTitleEl = document.getElementById('course-title');
+    const lessonListEl = document.getElementById('lesson-list');
+
+    function renderCourses() {
+      courseListEl.innerHTML = '';
+      courses.forEach(course => {
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        card.innerHTML = `
+          <h3>${course.title}</h3>
+          <p>${course.completed ? '✅ Completed' : 'In Progress'}</p>
+        `;
+        card.onclick = () => openCourse(course.id);
+        courseListEl.appendChild(card);
+      });
+    }
+
+    function openCourse(id) {
+      const course = courses.find(c => c.id === id);
+      courseTitleEl.textContent = course.title;
+      lessonListEl.innerHTML = '';
+      course.lessons.forEach((lesson, index) => {
+        const li = document.createElement('li');
+        li.textContent = lesson;
+        if (course.completed) li.classList.add('completed');
+
+        const btn = document.createElement('button');
+        btn.textContent = 'Mark as Completed';
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          course.completed = true;
+          li.classList.add('completed');
+          renderCourses();
+        };
+
+        li.appendChild(btn);
+        lessonListEl.appendChild(li);
+      });
+
+      homePageEl.classList.add('hidden');
+      coursePageEl.classList.remove('hidden');
+    }
+
+    function showHome() {
+      homePageEl.classList.remove('hidden');
+      coursePageEl.classList.add('hidden');
+    }
+
+    // Initialize
+    renderCourses();
+  </script>
+</body>
+</html>
