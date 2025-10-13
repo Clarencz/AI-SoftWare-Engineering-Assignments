@@ -1,0 +1,16 @@
+country,year,gdp_per_capita,population,energy_consumption_per_capita,co2_per_capita
+CountryA,2000,10000,5.0,2.5,6.0
+CountryA,2005,12000,5.2,2.7,6.5
+CountryA,2010,15000,5.5,3.0,7.2
+CountryA,2015,18000,5.8,3.2,7.6
+CountryA,2020,20000,6.0,3.4,8.0
+CountryB,2000,2000,30.0,1.2,1.8
+CountryB,2005,2500,32.0,1.3,2.0
+CountryB,2010,3000,34.0,1.5,2.3
+CountryB,2015,3500,36.0,1.7,2.6
+CountryB,2020,4000,38.0,1.9,2.9
+CountryC,2000,50000,1.0,6.0,14.0
+CountryC,2005,52000,1.05,6.1,14.5
+CountryC,2010,54000,1.1,6.2,14.8
+CountryC,2015,56000,1.15,6.3,15.0
+CountryC,2020,58000,1.2,6.4,15.2
